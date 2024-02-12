@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "memoryusagetitle",
   "version": "${version}",
-  "name": "Small Stairs",
-  "description": "hogehogehogehoge",
+  "name": "Memory Usage Title",
+  "description": "Show memory usage in title bar",
   "authors": [
     "Pitan"
   ],

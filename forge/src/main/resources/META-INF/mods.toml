@@ -21,7 +21,7 @@ modId = "memoryusagetitle" #mandatory
 # see the associated build.gradle script for how to populate this completely automatically during a build
 version = "${version}" #mandatory
 # A display name for the mod
-displayName = "Small Stairs" #mandatory
+displayName = "Memory Usage Title" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 #updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -42,7 +42,7 @@ authors = "Pitan" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-hogehogehogehoge
+Show memory usage in title bar
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.memoryusagetitle]] #optional
