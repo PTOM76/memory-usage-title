@@ -1,6 +1,7 @@
 package net.pitan76.memoryusagetitle.mixin;
 
 import net.minecraft.client.MinecraftClient;
+import net.pitan76.memoryusagetitle.MemoryUsageTitle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public class MinecraftClientMixin {
     @Inject(method = "getWindowTitle", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
     public void getWindowTitle(CallbackInfoReturnable<String> ci, StringBuilder stringBuilder) {
-        String usage = "Usage: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "MB / " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "MB";
-        stringBuilder.append(" - ").append(usage);
+        stringBuilder.append(" - ").append(MemoryUsageTitle.getUsageString());
         ci.setReturnValue(stringBuilder.toString());
     }
 }

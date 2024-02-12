@@ -25,4 +25,8 @@ public class MemoryUsageTitle {
     public static void clientInit(MinecraftClient client) {
 
     }
+
+    public static String getUsageString() {
+        return "Memory Usage: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "MB / " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "MB";
+    }
 }
