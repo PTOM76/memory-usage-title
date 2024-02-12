@@ -1,11 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.pitan76.memoryusagetitle.mixin.forge",
+  "package": "net.pitan76.memoryusagetitle.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,5 +1,6 @@
 package net.pitan76.memoryusagetitle;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
 
 public class MemoryUsageTitle {
@@ -11,6 +12,17 @@ public class MemoryUsageTitle {
     }
 
     public static void init() {
+        // Check client
+        try {
+            MinecraftClient client = MinecraftClient.getInstance();
+            clientInit(client);
+        } catch (Exception e) {
+            return;
+        }
+
+    }
+
+    public static void clientInit(MinecraftClient client) {
 
     }
 }
