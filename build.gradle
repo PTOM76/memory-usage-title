@@ -69,7 +69,6 @@ subprojects {
                         if (modLoader == "fabric") {
                             requiredDependency "fabric-api"
                         }
-                        requiredDependency 'mcpitanlibarch'
                     }
 
                     mainArtifact(tasks.remapJar)

@@ -64,10 +64,3 @@ mandatory = true
 versionRange = "[0,)"
 ordering = "NONE"
 side = "BOTH"
-
-[[dependencies.memoryusagetitle]]
-modId = "mcpitanlibarch"
-mandatory = true
-versionRange = "[0,)"
-ordering = "NONE"
-side = "BOTH"
