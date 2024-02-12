@@ -24,7 +24,7 @@ public class MinecraftClientMixin {
         ci.setReturnValue(stringBuilder.toString());
     }
 
-    @Inject(method = "tick", at = @At("HEAD"))
+    @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
         if (window == null) return;
         if (MemoryUsageTitle.CACHE_TITLE.isEmpty()) return;

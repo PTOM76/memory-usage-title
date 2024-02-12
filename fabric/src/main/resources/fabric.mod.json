@@ -21,7 +21,6 @@
     ]
   },
   "mixins": [
-    "memoryusagetitle.mixins.json",
     "memoryusagetitle-common.mixins.json"
   ],
   "depends": {
