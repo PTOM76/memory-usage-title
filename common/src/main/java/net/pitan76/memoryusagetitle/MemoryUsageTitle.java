@@ -1,34 +1,19 @@
 package net.pitan76.memoryusagetitle;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.Identifier;
-
 public class MemoryUsageTitle {
     public static final String MOD_ID = "memoryusagetitle";
-    public static final String MOD_NAME = "MemoryUsageTitle";
 
     public static String CACHE_TITLE = "";
 
-    public static Identifier id(String id) {
-        return new Identifier(MOD_ID, id);
-    }
-
     public static void init() {
-        // Check client
-        try {
-            MinecraftClient client = MinecraftClient.getInstance();
-            clientInit(client);
-        } catch (Exception e) {
-            return;
-        }
-
-    }
-
-    public static void clientInit(MinecraftClient client) {
 
     }
 
     public static String getUsageString() {
-        return "Memory Usage: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "MB / " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "MB";
+        long total = Runtime.getRuntime().totalMemory();
+        long usedMB = (total - Runtime.getRuntime().freeMemory()) / 1024 / 1024;
+        long totalMB = total / 1024 / 1024;
+
+        return "Memory: " + String.format("%,d", usedMB) + "MB / " + String.format("%,d", totalMB) + "MB";
     }
 }
