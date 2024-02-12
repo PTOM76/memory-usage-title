@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "memoryusagetitle",
+  "version": "${version}",
+  "name": "Small Stairs",
+  "description": "hogehogehogehoge",
+  "authors": [
+    "Pitan"
+  ],
+  "contact": {
+    "website": "https://www.curseforge.com/minecraft/mc-mods/small-stairs119",
+    "repo": "https://github.com/PTOM76/small-stairs119",
+    "issues": "https://github.com/PTOM76/small-stairs119/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/memoryusagetitle/logo.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "net.pitan76.memoryusagetitle.fabric.MemoryUsageTitleFabric"
+    ]
+  },
+  "mixins": [
+    "memoryusagetitle.mixins.json",
+    "memoryusagetitle-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": "*",
+    "mcpitanlibarch": ">1.2.0"
+  }
+}
