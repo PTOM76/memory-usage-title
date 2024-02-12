@@ -40,16 +40,24 @@ subprojects {
             curseforge {
                 apiKey = System.getenv("CURSEFORGE_TOKEN")
                 project {
-                    id = '687162'
+                    id = '973764'
                     changelog = ''
+                    releaseType = 'release'
                     if (modLoader == "fabric") {
-                        releaseType = 'release'
                         addGameVersion "Fabric"
                     }
                     if (modLoader == "forge") {
-                        releaseType = 'beta'
                         addGameVersion "Forge"
                     }
+                    addGameVersion '1.15'
+                    addGameVersion '1.15.1'
+                    addGameVersion '1.15.2'
+                    addGameVersion '1.16'
+                    addGameVersion '1.16.1'
+                    addGameVersion '1.16.2'
+                    addGameVersion '1.16.3'
+                    addGameVersion '1.16.4'
+                    addGameVersion '1.16.5'
                     addGameVersion '1.17'
                     addGameVersion '1.17.1'
                     addGameVersion '1.18'
@@ -65,11 +73,6 @@ subprojects {
                     addGameVersion '1.20.2'
                     addGameVersion '1.20.3'
                     addGameVersion '1.20.4'
-                    relations {
-                        if (modLoader == "fabric") {
-                            requiredDependency "fabric-api"
-                        }
-                    }
 
                     mainArtifact(tasks.remapJar)
                 }
@@ -83,19 +86,13 @@ subprojects {
         if (System.getenv("MODRINTH_TOKEN") != null) {
             modrinth {
                 token = System.getenv("MODRINTH_TOKEN")
-                projectId = 'PKI5O2ED'
+                projectId = 'YvaL4yx6'
                 versionNumber = project.mod_version + "-" + modLoader
-                gameVersions = ['1.17', '1.17.1', '1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.19.3', '1.19.4', '1.20', '1.20.1', '1.20.2', '1.20.3', '1.20.4']
+                gameVersions = ['1.15', '1.15.1', '1.15.2', '1.16', '1.16.1', '1.16.2', '1.16.3', '1.16.4', '1.16.5', '1.17', '1.17.1', '1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.19.3', '1.19.4', '1.20', '1.20.1', '1.20.2', '1.20.3', '1.20.4']
                 versionType = 'release'
                 uploadFile = tasks.remapJar
                 changelog = ''
                 loaders = [modLoader]
-                dependencies {
-                    if (modLoader == "fabric") {
-                        required.project "P7dR8mSH" // Fabric API
-                    }
-                    required.project "uNRoUnGT" // MCPitanLibarch
-                }
             }
         }
     }
