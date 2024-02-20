@@ -9,7 +9,7 @@ loom {
 }
 
 architectury {
-    common()
+    common("fabric", "forge", "neoforge")
 }
 
 publishing {

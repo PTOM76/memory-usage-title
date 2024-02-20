@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[0,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/PTOM76/memory-usage-title/issues"
+
+[[mods]]
+modId = "memoryusagetitle"
+version = "${version}"
+displayName = "Memory Usage Title"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/memory-usage-title"
+logoFile = "assets/memoryusagetitle/logo.png"
+authors = "Pitan"
+description = '''
+Show memory usage in title bar
+'''
+
+[[dependencies.memoryusagetitle]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.memoryusagetitle]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "memoryusagetitle-common.mixins.json"
