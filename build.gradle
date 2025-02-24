@@ -39,7 +39,7 @@ subprojects {
                 apiKey = System.getenv("CURSEFORGE_TOKEN")
                 project {
                     id = '973764'
-                    changelog = ''
+                    changelog = 'fix compatibility with Simple Menu'
                     releaseType = 'beta'
                     if (modLoader == "fabric") {
                         addGameVersion "Fabric"
@@ -106,7 +106,7 @@ subprojects {
                 }
                 versionType = 'beta'
                 uploadFile = tasks.remapJar
-                changelog = ''
+                changelog = 'fix compatibility with Simple Menu'
                 loaders = [modLoader]
             }
         }
