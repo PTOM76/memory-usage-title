@@ -6,26 +6,37 @@ import net.pitan76.memoryusagetitle.MemoryUsageTitle;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(MinecraftClient.class)
-public class MinecraftClientMixin {
+import java.util.Objects;
+
+@Mixin(value = MinecraftClient.class)
+public abstract class MinecraftClientMixin {
     @Shadow @Final private Window window;
 
-    @Inject(method = "getWindowTitle", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
-    public void getWindowTitle(CallbackInfoReturnable<String> ci, StringBuilder stringBuilder) {
-        MemoryUsageTitle.CACHE_TITLE = stringBuilder.toString();
+    @Shadow protected abstract String getWindowTitle();
 
-        stringBuilder.append(" - ").append(MemoryUsageTitle.getUsageString());
-        ci.setReturnValue(stringBuilder.toString());
+    @Unique
+    private static boolean mut$flagGetWindowTitle = false;
+
+    @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
+    private void mut$getWindowTitle(CallbackInfoReturnable<String> ci) {
+        if (mut$flagGetWindowTitle) return;
+
+        mut$flagGetWindowTitle = true;
+        MemoryUsageTitle.CACHE_TITLE = getWindowTitle();
+        mut$flagGetWindowTitle = false;
+
+        ci.setReturnValue(MemoryUsageTitle.CACHE_TITLE + " - " + MemoryUsageTitle.getUsageString());
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    public void tick(CallbackInfo ci) {
+    private void mut$tick(CallbackInfo ci) {
         if (window == null) return;
         if (MemoryUsageTitle.CACHE_TITLE.isEmpty()) return;
 
