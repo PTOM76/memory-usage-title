@@ -9,16 +9,10 @@ architectury {
     minecraft = rootProject.minecraft_version
 }
 
-import com.modrinth.minotaur.dependencies.ModDependency
-
 subprojects {
     apply plugin: "dev.architectury.loom-no-remap"
     apply plugin: "com.modrinth.minotaur"
     apply plugin: "com.matthewprenger.cursegradle"
-
-    loom {
-        silentMojangMappingsLicense()
-    }
 
     repositories {
         maven { url "https://maven.shedaniel.me/" }
@@ -47,59 +41,10 @@ subprojects {
                         addGameVersion "Forge"
                     }
                     if (modLoader == "neoforge") {
-                        addGameVersion '1.20.2'
-                        addGameVersion '1.20.3'
-                        addGameVersion '1.20.4'
-                        addGameVersion '1.20.5'
-                        addGameVersion '1.20.6'
-                        addGameVersion '1.21'
-                        addGameVersion '1.21.1'
-                        addGameVersion '1.21.2'
-                        addGameVersion '1.21.3'
-                        addGameVersion '1.21.4'
-                        addGameVersion '1.21.5'
-                    } else {
-                        addGameVersion '1.15'
-                        addGameVersion '1.15.1'
-                        addGameVersion '1.15.2'
-                        addGameVersion '1.16'
-                        addGameVersion '1.16.1'
-                        addGameVersion '1.16.2'
-                        addGameVersion '1.16.3'
-                        addGameVersion '1.16.4'
-                        addGameVersion '1.16.5'
-                        addGameVersion '1.17'
-                        addGameVersion '1.17.1'
-                        addGameVersion '1.18'
-                        addGameVersion '1.18.1'
-                        addGameVersion '1.18.2'
-                        addGameVersion '1.19'
-                        addGameVersion '1.19.1'
-                        addGameVersion '1.19.2'
-                        addGameVersion '1.19.3'
-                        addGameVersion '1.19.4'
-                        addGameVersion '1.20'
-                        addGameVersion '1.20.1'
-                        addGameVersion '1.20.2'
-                        addGameVersion '1.20.3'
-                        addGameVersion '1.20.4'
-                        addGameVersion '1.20.5'
-                        addGameVersion '1.20.6'
-                        addGameVersion '1.21'
-                        addGameVersion '1.21.1'
-                        addGameVersion '1.21.2'
-                        addGameVersion '1.21.3'
-                        addGameVersion '1.21.4'
-                        addGameVersion '1.21.5'
-                        addGameVersion '1.21.6'
-                        addGameVersion '1.21.7'
-                        addGameVersion '1.21.8'
-                        addGameVersion '1.21.9'
-                        addGameVersion '1.21.10'
-                        addGameVersion '1.21.11'
-                        addGameVersion '26.1'
-                        addGameVersion '26.1.1'
+                        addGameVersion "NeoForge"
                     }
+                    addGameVersion '26.1'
+                    addGameVersion '26.1.1'
 
                     mainArtifact(tasks.jar)
                 }
@@ -115,14 +60,10 @@ subprojects {
                 token = System.getenv("MODRINTH_TOKEN")
                 projectId = 'YvaL4yx6'
                 versionNumber = project.mod_version + "-" + modLoader
-                if (modLoader == "neoforge") {
-                    gameVersions = ['1.20.2', '1.20.3', '1.20.4', '1.20.5', '1.20.6', '1.21', '1.21.1', '1.21.2', '1.21.3', '1.21.4', '1.21.5']
-                } else {
-                    gameVersions = ['1.15', '1.15.1', '1.15.2', '1.16', '1.16.1', '1.16.2', '1.16.3', '1.16.4', '1.16.5', '1.17', '1.17.1', '1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.19.3', '1.19.4', '1.20', '1.20.1', '1.20.2', '1.20.3', '1.20.4', '1.20.5', '1.20.6', '1.21', '1.21.1', '1.21.2', '1.21.3', '1.21.4', '1.21.5']
-                }
+                gameVersions = ['26.1', '26.1.1']
                 versionType = 'release'
                 uploadFile = tasks.jar
-                changelog = 'fix latest neoforge'
+                changelog = 'port to 26.1 and 26.1.1'
                 loaders = [modLoader]
             }
         }

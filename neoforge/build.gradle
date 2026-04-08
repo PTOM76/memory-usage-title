@@ -27,7 +27,6 @@ project.base.archivesName = project.base.archivesName.get() + "-neoforge"
 
 dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
-    // Remove the next line if you don't want to depend on the API
 
     common(project(path: ":common")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
@@ -57,7 +56,7 @@ shadowJar {
 }
 
 jar {
-    archiveClassifier.set("dev")
+    archiveClassifier.set("raw")
 }
 
 sourcesJar {

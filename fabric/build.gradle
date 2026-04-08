@@ -51,7 +51,7 @@ shadowJar {
 }
 
 jar {
-    setArchiveClassifier("dev")
+    setArchiveClassifier("raw")
 }
 
 sourcesJar {
