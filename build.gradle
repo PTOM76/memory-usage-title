@@ -24,47 +24,50 @@ subprojects {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
     }
 
-    if (name in "fabric,forge,neoforge".split(",")) {
-        var modLoader = name
+    afterEvaluate {
+        if (name in "fabric,forge,neoforge".split(",")) {
+            var modLoader = name
 
-        if (System.getenv("CURSEFORGE_TOKEN") != null) {
-            curseforge {
-                apiKey = System.getenv("CURSEFORGE_TOKEN")
-                project {
-                    id = '973764'
-                    changelog = 'fix latest neoforge'
-                    releaseType = 'release'
-                    if (modLoader == "fabric") {
-                        addGameVersion "Fabric"
-                    }
-                    if (modLoader == "forge") {
-                        addGameVersion "Forge"
-                    }
-                    if (modLoader == "neoforge") {
-                        addGameVersion "NeoForge"
-                    }
-                    addGameVersion '26.1'
-                    addGameVersion '26.1.1'
+            if (System.getenv("CURSEFORGE_TOKEN") != null) {
+                curseforge {
+                    apiKey = System.getenv("CURSEFORGE_TOKEN")
+                    project {
+                        id = '973764'
+                        changelog = rootProject.changelog + "\nMCPitanLib: " + rootProject.mcpitanlib_version.split(":")[1]
+                        releaseType = 'release'
+                        if (modLoader == "fabric") {
+                            addGameVersion "Fabric"
+                        }
+                        if (modLoader == "forge") {
+                            addGameVersion "Forge"
+                        }
+                        if (modLoader == "neoforge") {
+                            addGameVersion "NeoForge"
+                        }
+                        addGameVersion '26.1'
+                        addGameVersion '26.1.1'
+                        addGameVersion '26.1.2'
 
-                    mainArtifact(tasks.jar)
+                        mainArtifact(tasks.named("shadowJar").get().archiveFile.get().asFile)
+                    }
+                    options {
+                        forgeGradleIntegration = false
+                    }
                 }
-                options {
-                    forgeGradleIntegration = false
-                }
+
             }
 
-        }
-
-        if (System.getenv("MODRINTH_TOKEN") != null) {
-            modrinth {
-                token = System.getenv("MODRINTH_TOKEN")
-                projectId = 'YvaL4yx6'
-                versionNumber = project.mod_version + "-" + modLoader
-                gameVersions = ['26.1', '26.1.1']
-                versionType = 'release'
-                uploadFile = tasks.jar
-                changelog = 'port to 26.1 and 26.1.1'
-                loaders = [modLoader]
+            if (System.getenv("MODRINTH_TOKEN") != null) {
+                modrinth {
+                    token = System.getenv("MODRINTH_TOKEN")
+                    projectId = 'YvaL4yx6'
+                    versionNumber = project.mod_version + "-" + modLoader
+                    gameVersions = ['26.1', '26.1.1', '26.1.2']
+                    versionType = 'release'
+                    uploadFile = tasks.named("shadowJar").get().archiveFile.get().asFile
+                    changelog = rootProject.changelog + "\nMCPitanLib: " + rootProject.mcpitanlib_version.split(":")[1]
+                    loaders = [modLoader]
+                }
             }
         }
     }
