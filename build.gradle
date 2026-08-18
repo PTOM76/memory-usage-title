@@ -46,10 +46,6 @@ subprojects {
 
                     client = true
                     server = true
-
-                    if (name == "fabric" || name == "neoforge") {
-                        requires("mcpitanlibarch")
-                    }
                 }
             }
 
@@ -59,10 +55,6 @@ subprojects {
                     projectId = "YvaL4yx6"
 
                     minecraftVersions.addAll(['26.1', '26.1.1', '26.1.2', '26.2'])
-
-                    if (name == "fabric" || name == "neoforge") {
-                        requires("mcpitanlibarch")
-                    }
                 }
             }
         }
