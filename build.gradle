@@ -1,8 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.5-SNAPSHOT"
     id "dev.architectury.loom-no-remap" version "1.14-SNAPSHOT" apply false
-    id 'com.matthewprenger.cursegradle' version '1.5.0'
-    id "com.modrinth.minotaur" version "2.+"
+    id "me.modmuss50.mod-publish-plugin" version "2.2.0" apply false
 }
 
 architectury {
@@ -11,8 +10,7 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom-no-remap"
-    apply plugin: "com.modrinth.minotaur"
-    apply plugin: "com.matthewprenger.cursegradle"
+    apply plugin: "me.modmuss50.mod-publish-plugin"
 
     repositories {
         maven { url "https://maven.shedaniel.me/" }
@@ -25,53 +23,52 @@ subprojects {
     }
 
     afterEvaluate {
-        if (name in "fabric,forge,neoforge".split(",")) {
-            var modLoader = name
+        publishMods {
+            if (name == "common") return
 
-            if (System.getenv("CURSEFORGE_TOKEN") != null) {
+            file = tasks.named("shadowJar").flatMap { it.archiveFile }
+            version = rootProject.mod_version
+            displayName = "${rootProject.archives_base_name}-${project.name}-${rootProject.mod_version}.jar"
+            changelog = rootProject.changelog
+
+            type = STABLE
+            modLoaders.add(name)
+
+            var curseforgeToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+            var modrinthToken = providers.environmentVariable("MODRINTH_TOKEN")
+
+            if (curseforgeToken.isPresent()) {
                 curseforge {
-                    apiKey = System.getenv("CURSEFORGE_TOKEN")
-                    project {
-                        id = '973764'
-                        changelog = rootProject.changelog
-                        releaseType = 'release'
-                        if (modLoader == "fabric") {
-                            addGameVersion "Fabric"
-                        }
-                        if (modLoader == "forge") {
-                            addGameVersion "Forge"
-                        }
-                        if (modLoader == "neoforge") {
-                            addGameVersion "NeoForge"
-                        }
-                        addGameVersion '26.1'
-                        addGameVersion '26.1.1'
-                        addGameVersion '26.1.2'
+                    accessToken = curseforgeToken
+                    projectId = "973764"
 
-                        mainArtifact(tasks.named("shadowJar").get().archiveFile.get().asFile)
-                    }
-                    options {
-                        forgeGradleIntegration = false
+                    minecraftVersions.addAll(['26.1', '26.1.1', '26.1.2', '26.2'])
+
+                    client = true
+                    server = true
+
+                    if (name == "fabric" || name == "neoforge") {
+                        requires("mcpitanlibarch")
                     }
                 }
-
             }
 
-            if (System.getenv("MODRINTH_TOKEN") != null) {
+            if (modrinthToken.isPresent()) {
                 modrinth {
-                    token = System.getenv("MODRINTH_TOKEN")
-                    projectId = 'YvaL4yx6'
-                    versionNumber = project.mod_version + "-" + modLoader
-                    gameVersions = ['26.1', '26.1.1', '26.1.2']
-                    versionType = 'release'
-                    uploadFile = tasks.named("shadowJar").get().archiveFile.get().asFile
-                    changelog = rootProject.changelog
-                    loaders = [modLoader]
+                    accessToken = modrinthToken
+                    projectId = "YvaL4yx6"
+
+                    minecraftVersions.addAll(['26.1', '26.1.1', '26.1.2', '26.2'])
+
+                    if (name == "fabric" || name == "neoforge") {
+                        requires("mcpitanlibarch")
+                    }
                 }
             }
         }
     }
 }
+
 allprojects {
     apply plugin: "java"
     apply plugin: "architectury-plugin"
